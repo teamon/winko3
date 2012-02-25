@@ -17,7 +17,10 @@ object Static {
   </html>.toString
 
   val mainJS = """
-    val Bridge;
+    val Bridge = { cursors: { add: function(){
+      alert("dupa");
+      return 123;
+      }} };
 
     Raphael(function() {
       var r = Raphael("main", 640, 480),
@@ -28,6 +31,7 @@ object Static {
             var circle = paper.circle(50, 40, 10);
             circle.attr("fill", "#f00");
             circle.attr("stroke", "#fff");
+            return 123;
           },
           update: function(cur){
 
@@ -70,13 +74,13 @@ object App extends Log {
     view.show()
 
     val eval = (cmd: String) => ui {
-      log(view.frame.evaluateJavaScript(cmd))
+      log(cmd, view.frame.evaluateJavaScript(cmd))
     }
 
     val bridge = new TuioBridge(
-      (tcur) => eval("Bridge.cursors.add();"),
-      (tcur) => eval("Bridge.cursors.update();"),
-      (tcur) => eval("Bridge.cursors.remove();")
+      (tcur) => eval("alert(1)"),
+      (tcur) => {}, //eval("Bridge.cursors.update();"),
+      (tcur) => {} //eval("Bridge.cursors.remove();")
     )
 
     QApplication.exec()
