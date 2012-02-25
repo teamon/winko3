@@ -5,13 +5,49 @@ import com.trolltech.qt.gui._
 import com.trolltech.qt.webkit._
 import TUIO._
 
+object Static {
+  val mainHtml = <html>
+    <head>
+      <script type="text/javascript" src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"></script>
+      <script type="text/javascript">{mainJS}</script>
+    </head>
+    <body>
+      <div id="#main"></div>
+    </body>
+  </html>.toString
+
+  val mainJS = """
+    val Bridge;
+
+    Raphael(function() {
+      var r = Raphael("main", 640, 480),
+      Bridge = {
+        cursors: {
+          add: function(cur){
+            alert(cur)
+            var circle = paper.circle(50, 40, 10);
+            circle.attr("fill", "#f00");
+            circle.attr("stroke", "#fff");
+          },
+          update: function(cur){
+
+          },
+          remove: function(cur){
+
+          }
+        }
+      }
+    })
+  """
+}
+
 class MainView extends QWidget {
   val browser = new QWebView
 
   setupLayout
 
   // Hello world
-  frame.setHtml("<h1>Hello</h1>")
+  frame.setHtml(Static.mainHtml)
   // frame.evaluateJavaScript("alert(1)")
 
   def frame = browser.page().mainFrame()
@@ -22,25 +58,35 @@ class MainView extends QWidget {
   }
 }
 
-object App {
+object App extends Log {
+  def ui(f: => Unit) = {} //QApplication.invokeLater(new Runnable { def run = f })
+
+
   def main(args: Array[String]) {
     QApplication.initialize(args)
     val view = new MainView
     // view.showFullScreen()
     view.show()
 
-    val bridge = new TuioBridge
+    val eval = (cmd: String) => ui {
+      log(view.frame.evaluateJavaScript(cmd))
+    }
+
+    val bridge = new TuioBridge(
+      (tcur) => eval("Bridge.cursors.add();"),
+      (tcur) => eval("Bridge.cursors.update();"),
+      (tcur) => eval("Bridge.cursors.remove();")
+    )
 
     QApplication.exec()
   }
 }
 
 trait Log {
-  def log(args: Any*) = println(args.mkString(" "))
+  def log(args: Any*) = println("[%s] %s" format (this.getClass.getName, args.mkString(" ")))
 }
 
-
-class TuioBridge extends TuioListener with Log {
+class TuioBridge(addc: TuioCursor => Unit, updatec: TuioCursor => Unit, removec: TuioCursor => Unit) extends TuioListener with Log {
   val client = new TuioClient
   client.addTuioListener(this)
   client.connect
@@ -57,15 +103,18 @@ class TuioBridge extends TuioListener with Log {
   def addTuioCursor(tcur: TuioCursor){
     log("cursor:add", tcur)
     cursors += tcur
+    addc(tcur)
   }
 
   def updateTuioCursor(tcur: TuioCursor){
     log("cursor:update", tcur)
+    updatec(tcur)
   }
 
   def removeTuioCursor(tcur: TuioCursor){
     log("cursor:remove", tcur)
     cursors -= tcur
+    removec(tcur)
   }
 
   def refresh(ttime: TuioTime){}
