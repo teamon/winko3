@@ -13,5 +13,10 @@ CP="$CP:$HOME/.sbt/boot/scala-2.9.1/lib/scala-library.jar"
 CP="$CP:$HOME/.ivy2/cache/net.sourceforge.tuio/tuio/jars/tuio-1.4.jar"
 CP="$CP:qtjambi-4.7.0.jar"
 
+
 cd $target
-java -XstartOnFirstThread -d32 -cp $CP winko.App
+if [ `uname` == "Darwin" ]; then
+	java -XstartOnFirstThread -d32 -cp $CP winko.App
+else
+	java -d32 -Djava.library.path="." -cp $CP winko.App
+fi
