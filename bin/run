@@ -1,17 +1,19 @@
 #!/bin/sh
+function die() {
+    echo "$*" 1>&2
+    exit 1
+}
 
-target="target/scala-2.9.1/classes"
+bin/fetch
 
-for i in `ls lib`; do
-    if [ ! -f "$target/$i" ]; then
-        cp -v "lib/$i" "$target/$i"
-    fi;
-done;
+if [ `uname` == "Darwin" ]; then
+    export JAVA_OPTS="-XstartOnFirstThread -d32"
+else
+    export JAVA_OPTS="-d32"
+fi;
 
-CP="."
-CP="$CP:$HOME/.sbt/boot/scala-2.9.1/lib/scala-library.jar"
-CP="$CP:$HOME/.ivy2/cache/net.sourceforge.tuio/tuio/jars/tuio-1.4.jar"
-CP="$CP:qtjambi-4.7.0.jar"
+if [ ! -x target/start ]; then
+    sbt start-script
+fi;
 
-cd $target
-java -XstartOnFirstThread -d32 -cp $CP winko.App
+target/start

@@ -1,3 +1,5 @@
+import com.typesafe.startscript.StartScriptPlugin
+
 name := "winko"
 
 version := "0.3.0-SNAPSHOT"
@@ -10,4 +12,7 @@ libraryDependencies += "net.debasishg" %% "sjson" % "0.15"
 
 seq(coffeeSettings: _*)
 
+seq(StartScriptPlugin.startScriptForClassesSettings: _*)
+
 (CoffeeKeys.bare in (Compile, CoffeeKeys.coffee)) := true
+
