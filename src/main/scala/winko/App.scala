@@ -25,7 +25,7 @@ object App {
   def main(args: Array[String]) {
     QApplication.initialize(args)
     val view = new MainView
-    view.show()
+    view.showFullScreen()
     QApplication.exec()
   }
 }
