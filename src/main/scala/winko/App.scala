@@ -59,7 +59,8 @@ class MainView extends QWidget {
 }
 
 object App extends Log {
-  def ui(f: => Unit) = {} //QApplication.invokeLater(new Runnable { def run = f })
+  def ui(f: => Unit) = Util.invokeLater(new Runnable() { def run = f })
+  // QApplication.invokeLater(new Runnable { def run = f })
 
 
   def main(args: Array[String]) {
