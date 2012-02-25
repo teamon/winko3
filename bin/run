@@ -8,10 +8,10 @@ for i in `ls lib`; do
     fi;
 done;
 
-cd $target
+CP="."
+CP="$CP:$HOME/.sbt/boot/scala-2.9.1/lib/scala-library.jar"
+CP="$CP:$HOME/.ivy2/cache/net.sourceforge.tuio/tuio/jars/tuio-1.4.jar"
+CP="$CP:qtjambi-4.7.0.jar"
 
-java \
-    -XstartOnFirstThread \
-    -d32 \
-    -cp $HOME/.sbt/boot/scala-2.9.1/lib/scala-library.jar:qtjambi-4.7.0.jar:. \
-    winko.App
+cd $target
+java -XstartOnFirstThread -d32 -cp $CP winko.App

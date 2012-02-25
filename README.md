@@ -10,3 +10,7 @@
 ## Dependencies
 
 * qt-jambit http://sourceforge.net/projects/qtjambi/files/4.7.0-beta1/
+
+## Resources
+
+* https://github.com/fajran/tongseng
