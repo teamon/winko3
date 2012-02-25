@@ -13,5 +13,5 @@ cd $target
 java \
     -XstartOnFirstThread \
     -d32 \
-    -cp qtjambi-4.7.0.jar:. \
-    winko.HelloWebKit
+    -cp $HOME/.sbt/boot/scala-2.9.1/lib/scala-library.jar:qtjambi-4.7.0.jar:. \
+    winko.App
