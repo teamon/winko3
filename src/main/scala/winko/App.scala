@@ -8,41 +8,17 @@ import TUIO._
 object Static {
   val mainHtml = <html>
     <head>
-      <script type="text/javascript" src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"></script>
-      <script type="text/javascript">{mainJS}</script>
+      <!-- <script src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"></script> -->
+      {jsfiles}
     </head>
-    <body>
+    <body onload="onload()">
       <div id="#main"></div>
     </body>
   </html>.toString
 
-  val mainJS = """
-    val Bridge = { cursors: { add: function(){
-      alert("dupa");
-      return 123;
-      }} };
-
-    Raphael(function() {
-      var r = Raphael("main", 640, 480),
-      Bridge = {
-        cursors: {
-          add: function(cur){
-            alert(cur)
-            var circle = paper.circle(50, 40, 10);
-            circle.attr("fill", "#f00");
-            circle.attr("stroke", "#fff");
-            return 123;
-          },
-          update: function(cur){
-
-          },
-          remove: function(cur){
-
-          }
-        }
-      }
-    })
-  """
+  val jsfiles = List("main").map { name =>
+    <script src={getClass.getResource("/js/" + name + ".js").toString}></script>
+  }
 }
 
 class MainView extends QWidget {
@@ -82,6 +58,8 @@ object App extends Log {
       (tcur) => {}, //eval("Bridge.cursors.update();"),
       (tcur) => {} //eval("Bridge.cursors.remove();")
     )
+
+    log(Static.jsfiles)
 
     QApplication.exec()
   }
