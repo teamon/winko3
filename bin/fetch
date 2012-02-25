@@ -1,0 +1,25 @@
+#!/bin/sh
+
+tarfile="qtjambi.tar.gz"
+mkdir -p target
+mkdir -p lib
+
+if [ ! -f "target/$tarfile" ]; then
+    echo "Downloading qt-jambi for Mac OSX"
+    curl http://heanet.dl.sourceforge.net/project/qtjambi/4.7.0-beta1/qtjambi-macosx32-intel-community-4.7.0-beta1.tar.gz > "target/$tarfile"
+fi
+
+cd target
+tar -zxvf qtjambi.tar.gz
+
+for i in `ls qtjambi-macosx-community-4.7.0 | grep ".jar"`; do
+    cp -v "qtjambi-macosx-community-4.7.0/$i" "../lib/$i"
+done
+
+for i in `ls qtjambi-macosx-community-4.7.0/lib`; do
+    cp -v "qtjambi-macosx-community-4.7.0/lib/$i" "../lib/$i"
+done
+
+# fix
+cd ../lib
+ln -s libqtjambi.jnilib libqtjambi.1.jnilib

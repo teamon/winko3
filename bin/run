@@ -1,0 +1,17 @@
+#!/bin/sh
+
+target="target/scala-2.9.1/classes"
+
+for i in `ls lib`; do
+    if [ ! -f "$target/$i" ]; then
+        cp -v "lib/$i" "$target/$i"
+    fi;
+done;
+
+cd $target
+
+java \
+    -XstartOnFirstThread \
+    -d32 \
+    -cp qtjambi-4.7.0.jar:. \
+    winko.HelloWebKit
