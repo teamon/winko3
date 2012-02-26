@@ -13,7 +13,7 @@ else
 fi;
 
 if [ ! -x target/start ]; then
-    sbt start-script
+    bin/sbt start-script
 fi;
 
 target/start
