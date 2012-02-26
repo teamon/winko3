@@ -25,6 +25,12 @@ class MainView extends QMainWindow {
 
   browser.setPage(new WWebPage())
 
+  val observer = new BrowserObserver(browser)
+  // browser.loadStarted.connect(observer, "loadStarted()");
+  // browser.loadProgress.connect(observer, "loadProgress(int)");
+  browser.loadFinished.connect(observer, "loadDone()");
+  // browser.urlChanged.connect(observer, "urlChanged(QUrl)");
+
   invokeLater {
     browser.load(new QUrl(Static.html.index.toString))
   }
@@ -35,8 +41,22 @@ class MainView extends QMainWindow {
     browser.load(url)
   }
 
+  // @MAIN_URL@
+
   def page = browser.page()
   def frame = browser.page().mainFrame()
+}
+
+class BrowserObserver(browser: QWebView) {
+  def loadDone(){
+    injectJavascript("load_scripts.js")
+    injectJavascript("main.js")
+  }
+
+  def injectJavascript(name: String) {
+    val js = io.Source.fromURL(getClass.getResource("/js/" + name)).getLines.mkString("")
+    Utils.invokeLater { browser.page().mainFrame().evaluateJavaScript(js) }
+  }
 }
 
 object Static {

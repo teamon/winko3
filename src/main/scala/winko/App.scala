@@ -11,7 +11,7 @@ object App extends Log {
     view.show()
 
     val client = new TuioClient
-    client.addTuioListener(new TuioWebkitBridge(view.frame))
+    client.addTuioListener(new TuioWebkitBridge(view.page))
     client.connect
 
     QApplication.exec()

@@ -16,14 +16,4 @@ if [ ! -x target/start ]; then
     sbt start-script
 fi;
 
-<<<<<<< HEAD
-
-cd $target
-if [ `uname` == "Darwin" ]; then
-	java -XstartOnFirstThread -d32 -cp $CP winko.App
-else
-	java -d32 -Djava.library.path="." -cp $CP winko.App
-fi
-=======
 target/start
->>>>>>> a436e6495842e9b3a83b8dcc821503c5f5027210
