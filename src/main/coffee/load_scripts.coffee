@@ -11,5 +11,8 @@ __winkoLoadScript = (url, callback) ->
     script.onload = callback
   head.appendChild(script)
 
-__winkoLoadScript "http://code.jquery.com/jquery-1.7.1.min.js", () ->
+if jQuery
+  __winkoLoadScript "http://code.jquery.com/jquery-1.7.1.min.js", () ->
+    __winkoLoadScript "@MAIN_URL@", () ->
+else
   __winkoLoadScript "@MAIN_URL@", () ->
