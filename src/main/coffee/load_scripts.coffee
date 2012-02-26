@@ -12,7 +12,7 @@ __winkoLoadScript = (url, callback) ->
   head.appendChild(script)
 
 if jQuery
+  __winkoLoadScript "@MAIN_URL@", () ->
+else
   __winkoLoadScript "http://code.jquery.com/jquery-1.7.1.min.js", () ->
     __winkoLoadScript "@MAIN_URL@", () ->
-else
-  __winkoLoadScript "@MAIN_URL@", () ->
