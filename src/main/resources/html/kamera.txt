@@ -1,0 +1,6 @@
+Zastosowana kamera zapewnia wysoką jakość akwizycji,
+oraz wymienność obiektywów. Pozwala ona na rejestrację obrazu
+z prędkością do 60 FPS. Kamera wyposażona została dodatkowo
+w filtr typu IR-pass eliminujący światło widzialne trafiające do matrycy.
+Zadaniem kamery jest przekazywanie obrazu z powierzchni blatu do aplikacji
+rozpoznawającej przedmioty i akcje.

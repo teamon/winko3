@@ -1,0 +1,5 @@
+Dzięki zastosowaniu szerokokątnego rzutnika, możliwe było
+znaczne zmniejszenie wysokości stołu. Dodatkowe wydłużenie osi 
+optycznej uzyskano przy pomocy zwierciadła umieszczonego przed rzutnikiem.
+Zadaniem rzutnika jest wyświetlanie obrazów na specjalnie przygotowanej
+powierchni blatu.

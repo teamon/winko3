@@ -1,0 +1,6 @@
+Zastosowanie oświetlenia powierzchni stołu
+w zakresie światła podczerwonego, udało się
+wyeliminować wpłīwa światła widzialnego na jakość akwizycji.
+Zastosowano diody PoweLed emitujące falę o długości 850 nm (NIR).
+Kamery z matrycą CCD są wyjątkowo czułe na tę długość fali.
+Diody zasilane są specjalnym, regulowanym żródłem prądowym.

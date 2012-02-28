@@ -1,8 +1,81 @@
+<!DOCTYPE html>
 <html>
     <head>
+       <meta charset="utf-8">
+
+        <style type="text/css">
+            * { margin: 0; padding: 0;}
+            body { background: #000; color: #fff;
+                font-family: Tahoma;
+                font-size: 13pt;
+             }
+            #buttons {
+                width: 400px;
+                height: 450px;
+                overflow: hidden;
+            }
+
+            .cnt { display: none;
+                width: 400px;
+                padding: 100px 20px;
+                line-height: 20pt;
+                height: 450px;
+                position: absolute;
+                background: #000;
+                top: 0;
+                left: 0;}
+        </style>
+
+        <script src="jquery.js"></script>
+        <script src="jquery-ui.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("a").click(function(){
+                    $(".cnt").hide()
+                    var self = this
+                    $("#buttons").effect("clip", {}, "normal", function(){
+                        $("#" + $(self).attr("rel")).show()
+
+                    })
+                })
+                $(".cnt").click(function(){
+                    $(".cnt").hide()
+                    $("#buttons").effect("slide")
+                })
+            })
+        </script>
     </head>
     <body>
-        <div id="main"></div>
-        test
+        <div id="buttons">
+            <div class="button">
+                <a rel="a" href="#"><img src="camera.png"/></a>
+            </div>
+            <div class="button">
+                <a rel="b" href="#"><img src="projector.png"/></a>
+            </div>
+            <div class="button">
+                <a rel="c" href="#"><img src="ir.png"/></a>
+            </div>
+        </div>
+
+        <div id="a" class="cnt">Zastosowana kamera zapewnia wysoką jakość akwizycji,
+oraz wymienność obiektywów. Pozwala ona na rejestrację obrazu
+z prędkością do 60 FPS. Kamera wyposażona została dodatkowo
+w filtr typu IR-pass eliminujący światło widzialne trafiające do matrycy.
+Zadaniem kamery jest przekazywanie obrazu z powierzchni blatu do aplikacji
+rozpoznawającej przedmioty i akcje.</div>
+
+        <div id="b" class="cnt">Dzięki zastosowaniu szerokokątnego rzutnika, możliwe było
+znaczne zmniejszenie wysokości stołu. Dodatkowe wydłużenie osi
+optycznej uzyskano przy pomocy zwierciadła umieszczonego przed rzutnikiem.
+Zadaniem rzutnika jest wyświetlanie obrazów na specjalnie przygotowanej
+powierchni blatu.</div>
+
+        <div id="c" class="cnt">Zastosowanie oświetlenia powierzchni stołu
+w zakresie światła podczerwonego, udało się
+wyeliminować wpłīwa światła widzialnego na jakość akwizycji.
+Zastosowano diody PoweLed emitujące falę o długości 850 nm (NIR).
+Kamery z matrycą CCD są wyjątkowo czułe na tę długość fali.
+Diody zasilane są specjalnym, regulowanym żródłem prądowym.</div>
     </body>
 </html>
