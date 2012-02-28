@@ -19,7 +19,7 @@ class WinkoImpl
       .attr("id", "__cur#{cur.id}")
     $("body").append(dot)
 
-    Keyboard.show()
+    # Keyboard.show()
 
     null # XXX: qt bug
 

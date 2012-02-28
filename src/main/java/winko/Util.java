@@ -9,3 +9,13 @@ public class Util {
         QApplication.invokeLater(runnable);
     }
 }
+
+class QApp {
+    public static void sendEvent(QObject receiver, QEvent event){
+        QApplication.sendEvent(receiver, event);
+    }
+
+    public static void postEvent(QObject receiver, QEvent event){
+        QApplication.postEvent(receiver, event);
+    }
+}
